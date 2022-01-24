@@ -12,7 +12,7 @@ For assistance:
 */
 
 const itemsPerpage = 9;
-
+let currentPage =1;
 /*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
@@ -66,7 +66,7 @@ function addPagination(list) {
   for (let i = 1; i <= numberOfItems; i++) {
      // create the elements needed to display the pagination button
     let button = `<li>
-    <button type="button">${i}</button>
+    <button type="button"${currentPage === i ? 'class="active"' : '' }>${i}</button>
     </li>`;
     // insert the above elements
     linkList.insertAdjacentHTML('beforeend', button);
@@ -84,7 +84,8 @@ function addPagination(list) {
    // if the click target is a button:
       if(event.target.tagName == 'BUTTON') {
         // remove the "active" class from the previous button
-         document.querySelector('.active').className = '';
+         document.querySelectorAll('.active').forEach( (el) => { el.className = ''; });
+         // Add the "active" class to the current clicked button
          event.target.className = 'active';
          currentPage = event.target.textContent;
          showPage(list, event.target.textContent);
